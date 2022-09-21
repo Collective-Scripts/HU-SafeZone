@@ -5,21 +5,17 @@ function onEnter(self)
     local ped = PlayerPedId()
 	playerState.isInSafeZone = true
 	if not playerState.isInSafeZone then return end
-	if Config.SafeZoneSettings.DisableFiring then NetworkSetFriendlyFireOption(false) end
+	if Config.SafeZoneSettings.DisableWeapon then NetworkSetFriendlyFireOption(false) end
 	if IsPedInAnyVehicle(ped) and Config.SafeZoneSettings.UseGhostMode then SetLocalPlayerAsGhost(true) else SetLocalPlayerAsGhost(true) end
-	CollectiveC.Notification(1, 'You\'re inside of a safe zone.', 15000)
-	loopInSafeZone = SetInterval(function()
-		if playerState.isInSafeZone and Config.SafeZoneSettings.DisableWeapon then
+	CollectiveC.Notification(1, 'You have entered a safe zone.', 15000)
+	Citizen.CreateThread(function()
+		while playerState.isInSafeZone and Config.SafeZoneSettings.DisableWeapon do
+			Citizen.Wait(5)
 			DisableControlAction(0, 24, true) -- LEFT MOUSE BUTTON
 			DisableControlAction(0, 25, true) -- RIGHT MOUSE BUTTON
 			DisableControlAction(0, 37, true) -- TAB
+			DisableControlAction(0, 140, true)
 			if IsDisabledControlJustPressed(2, 37) then
-				TriggerEvent('ox_inventory:disarm')
-			end
-			if IsDisabledControlJustPressed(2, 24) then
-				TriggerEvent('ox_inventory:disarm')
-			end
-			if IsDisabledControlJustPressed(2, 25) then
 				TriggerEvent('ox_inventory:disarm')
 			end
 			if IsDisabledControlJustPressed(0, 24) then
@@ -32,14 +28,15 @@ function onEnter(self)
 				TriggerEvent('ox_inventory:disarm')
 			end
 		end
-	end, 0)
+	end)
 end
 
 function onExit(self)
 	local ped = PlayerPedId()
 	playerState.isInSafeZone = false
-	if Config.SafeZoneSettings.DisableFiring then NetworkSetFriendlyFireOption(true) end
+	if Config.SafeZoneSettings.DisableWeapon then NetworkSetFriendlyFireOption(true) end
 	if IsPedInAnyVehicle(ped) and Config.SafeZoneSettings.UseGhostMode then SetLocalPlayerAsGhost(false) else SetLocalPlayerAsGhost(false) end
+	CollectiveC.Notification(3, 'You are no longer in a safe zone.', 5000)
 end
 
 Citizen.CreateThread(function()
