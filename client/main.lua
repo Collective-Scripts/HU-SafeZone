@@ -2,7 +2,6 @@ local playerState = LocalPlayer.state
 playerState:set('isInSafeZone', false, false)
 
 function onEnter(self)
-    print('entered zone', self.id)
     local ped = PlayerPedId()
 	playerState.isInSafeZone = true
 	if not playerState.isInSafeZone then return end
@@ -15,6 +14,12 @@ function onEnter(self)
 			DisableControlAction(0, 25, true) -- RIGHT MOUSE BUTTON
 			DisableControlAction(0, 37, true) -- TAB
 			if IsDisabledControlJustPressed(2, 37) then
+				TriggerEvent('ox_inventory:disarm')
+			end
+			if IsDisabledControlJustPressed(2, 24) then
+				TriggerEvent('ox_inventory:disarm')
+			end
+			if IsDisabledControlJustPressed(2, 25) then
 				TriggerEvent('ox_inventory:disarm')
 			end
 			if IsDisabledControlJustPressed(0, 24) then
@@ -31,7 +36,6 @@ function onEnter(self)
 end
 
 function onExit(self)
-    print('exited zone', self.id)
 	local ped = PlayerPedId()
 	playerState.isInSafeZone = false
 	if Config.SafeZoneSettings.DisableFiring then NetworkSetFriendlyFireOption(true) end
