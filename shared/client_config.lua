@@ -67,6 +67,14 @@ function CollectiveC.Notification(theType, message, duration)
         elseif theType == 3 then
             exports["col_notify"]:Notify('error', duration, message, 'SYSTEM')
         end
+    elseif Config.NotificationType.client == 'codem-venice' then
+        if theType == 1 then
+            exports["Venice-Notification"]:Notify(message, duration, 'error')
+        elseif theType == 2 then
+            exports["Venice-Notification"]:Notify(message, duration, 'info')
+        elseif theType == 3 then
+            exports["Venice-Notification"]:Notify(message, duration, 'check')
+        end
     elseif Config.NotificationType.client == 'default-esx' then
         if theType == 1 or theType == 2 or theType == 3 then
             SetNotificationTextEntry('STRING')
