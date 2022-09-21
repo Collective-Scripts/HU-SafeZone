@@ -5,3 +5,5 @@
 ```lua
 LocalPlayer.state.isInSafeZone
 ```
+
+[For more information please visit our discord server](https://discord.gg/4mVn2XUp)
