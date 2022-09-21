@@ -2,6 +2,6 @@
  A simple safezone using box zone
 
 ### Player State
-    ```lua
-    LocalPlayer.state.isInSafeZone
-    ```
+```lua
+LocalPlayer.state.isInSafeZone
+```
