@@ -7,8 +7,9 @@ description 'A simple safezone using polyzone'
 version '1.0.0'
 lua54 'yes'
 
+dependency 'ox_lib'
+
 shared_scripts{
-    '@es_extended/imports.lua', 
     '@ox_lib/init.lua'
 }
 
