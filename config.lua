@@ -10,10 +10,13 @@ Config.SafeZoneSettings = {
 }
 
 Config.SafeZones = {
-	{
+	{ -- Example
 		pos = vec3(0.0, 0.0, 0.0), -- PolyZone Location
 		size = vec3(1, 1, 1), -- PolyZone Size
 		polyH = 0, -- PolyZone Heading
 		debug = true, -- Debug PolyZone
+		AllowedWeapons = {
+			[`weapon_stungun`] = true
+		}
 	}
 }
